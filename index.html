@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Breakaway — Verifiable skill credentials for the uncredentialed. Prove what you know. No degree required.">
+  <meta name="theme-color" content="#0a0a0f">
+  <title>Breakaway — Prove What You Know</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- NAVIGATION                                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <nav id="main-nav" class="nav hidden">
+    <div class="nav-inner">
+      <a href="#/" class="nav-brand">
+        <span class="brand-icon">◈</span>
+        <span class="brand-text">Breakaway</span>
+      </a>
+      <div class="nav-links">
+        <a href="#/dashboard" class="nav-link" data-view="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </a>
+        <a href="#/challenges" class="nav-link" data-view="challenges">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Challenges
+        </a>
+        <a href="#/profile" class="nav-link" data-view="profile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+        </a>
+        <a href="#/credentials" class="nav-link" data-view="credentials">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Credentials
+        </a>
+      </div>
+      <div class="nav-user" id="nav-user">
+        <div class="nav-avatar" id="nav-avatar">?</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- MAIN APPLICATION CONTAINER                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <main id="app">
+
+    <!-- ─── LANDING VIEW ─── -->
+    <section id="view-landing" class="view active">
+      <canvas id="grid-canvas"></canvas>
+      <canvas id="particle-canvas"></canvas>
+      <div class="hero">
+        <div class="hero-left">
+          <div class="hero-tag">◈ BREAKAWAY PROTOCOL</div>
+          <h1 class="hero-title">
+            <span class="hero-break">Break</span>
+            <span class="hero-away">Away</span>
+          </h1>
+          <p class="hero-lead">Proof is the way out.<br>No degree required.</p>
+          <p class="hero-sub">This turns skill into undeniable proof that bypasses gatekeeping.</p>
+          <div class="hero-actions">
+            <button id="btn-get-started" class="btn btn-primary btn-lg btn-hold">
+              <div class="hold-progress" id="hold-progress-bar"></div>
+              <span class="btn-text">Hold to Break Out</span>
+            </button>
+            <button id="btn-learn-more" class="btn btn-ghost btn-lg">How It Works</button>
+          </div>
+          <div class="hero-proof">
+            <div class="proof-line"><span class="proof-dot live"></span> <span class="proof-label">Open Source</span></div>
+            <div class="proof-line"><span class="proof-dot"></span> <span class="proof-label">SHA-256 Verified</span></div>
+            <div class="proof-line"><span class="proof-dot"></span> <span class="proof-label">Local-First / Sovereign</span></div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="preview-credential">
+            <div class="pc-header">
+              <span class="pc-badge">VERIFIED CREDENTIAL</span>
+              <span class="pc-shield">◈</span>
+            </div>
+            <div class="pc-domain">CODING</div>
+            <div class="pc-title">Array Frequency Analysis</div>
+            <div class="pc-score-row">
+              <div class="pc-score">92<span>%</span></div>
+              <div class="pc-meta">
+                <div>Completed in 2m 34s</div>
+                <div>Beginner · 2 tests passed</div>
+              </div>
+            </div>
+            <div class="pc-hash">
+              <span class="pc-hash-label">SHA-256</span>
+              <span class="pc-hash-val">a7f3b2c9d4e8...1f6a</span>
+            </div>
+            <div class="pc-market-signal" style="margin-top: 16px; padding: 12px; background: rgba(52, 211, 153, 0.1); border-left: 3px solid #34d399; border-radius: 4px;">
+              <div style="font-size: 10px; font-weight: 700; color: #34d399; letter-spacing: 1px; margin-bottom: 4px;">MARKET SIGNAL</div>
+              <div style="font-size: 14px; font-weight: 600; color: #fff;">$65k–$110k Value</div>
+            </div>
+            <div class="pc-footer">
+              <span id="stat-challenges">3</span> challenges · <span id="stat-domains">5</span> domains · <span id="stat-verified">0</span> issued
+            </div>
+          </div>
+          <div class="preview-glow"></div>
+        </div>
+      </div>
+
+      <!-- HOW IT WORKS -->
+      <div id="how-it-works" class="how-section">
+        <div class="how-header">
+          <span class="how-tag">HOW IT WORKS</span>
+          <h2 class="how-title">Four steps to verified proof</h2>
+        </div>
+        <div class="steps-row">
+          <div class="step" data-n="01">
+            <h3>Challenge</h3>
+            <p>Code, logic, analysis, debug — pick a domain and prove it live.</p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step" data-n="02">
+            <h3>Verify</h3>
+            <p>Your work is scored and sealed with SHA-256. Tamper-proof.</p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step" data-n="03">
+            <h3>Credential</h3>
+            <p>Each pass earns a verified credential tied to your profile.</p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step" data-n="04">
+            <h3>Breakaway</h3>
+            <p>Stack credentials until your proven skills outpace any degree.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ONBOARDING VIEW ─── -->
+    <section id="view-onboard" class="view">
+      <div class="container">
+        <div class="onboard-card">
+          <div class="onboard-header">
+            <span class="brand-icon lg">◈</span>
+            <h2>Set Up Your Identity</h2>
+            <p>This stays on your device. Nothing leaves your machine.</p>
+          </div>
+          <form id="onboard-form" class="onboard-form">
+            <div class="form-group">
+              <label for="onboard-name">Display Name</label>
+              <input type="text" id="onboard-name" placeholder="How you want to be known" required maxlength="50">
+            </div>
+            <div class="form-group">
+              <label for="onboard-title">Current Title / Role</label>
+              <input type="text" id="onboard-title" placeholder="e.g. Self-taught developer, Career changer" maxlength="80">
+            </div>
+            <div class="form-group">
+              <label for="onboard-bio">One-line Bio</label>
+              <input type="text" id="onboard-bio" placeholder="What drives you" maxlength="120">
+            </div>
+            <div class="form-group">
+              <label>Pick Your Focus Domains</label>
+              <div class="domain-chips" id="domain-chips">
+                <!-- populated by JS -->
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-full">
+              <span>Launch Your Profile</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── DASHBOARD VIEW ─── -->
+    <section id="view-dashboard" class="view">
+      <div class="container">
+        <div class="dash-header">
+          <div>
+            <h2 class="dash-greeting" id="dash-greeting">Welcome back</h2>
+            <p class="dash-sub">Your breakaway trajectory</p>
+          </div>
+          <div class="dash-actions">
+            <button class="btn btn-primary" onclick="location.hash='#/challenges'">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              New Challenge
+            </button>
+          </div>
+        </div>
+
+        <!-- Trajectory Chart -->
+        <div class="card card-trajectory">
+          <div class="card-header">
+            <h3>Skill Trajectory</h3>
+            <div class="card-badge" id="trajectory-status">Building momentum</div>
+          </div>
+          <canvas id="trajectory-chart" height="280"></canvas>
+        </div>
+
+        <!-- Cognitive Radar Chart -->
+        <div class="card card-radar">
+          <div class="card-header">
+            <h3>Cognitive Profile</h3>
+            <div class="card-badge" id="radar-status">5-axis assessment</div>
+          </div>
+          <div class="radar-chart-wrapper">
+            <canvas id="radar-chart" width="400" height="400"></canvas>
+            <div class="radar-legend" id="radar-legend"></div>
+          </div>
+        </div>
+
+        <!-- Tier Progress -->
+        <div class="card card-tier-progress">
+          <div class="card-header">
+            <h3>Tier Progress</h3>
+            <div class="card-badge">Completion by difficulty</div>
+          </div>
+          <div id="tier-progress"></div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-card-icon gold">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="stat-card-data">
+              <span class="stat-card-num" id="dash-credentials">0</span>
+              <span class="stat-card-label">Verified Credentials</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div class="stat-card-data">
+              <span class="stat-card-num" id="dash-completed">0</span>
+              <span class="stat-card-label">Challenges Completed</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div class="stat-card-data">
+              <span class="stat-card-num" id="dash-score">0</span>
+              <span class="stat-card-label">Average Score</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <div class="stat-card-data">
+              <span class="stat-card-num" id="dash-domains">0</span>
+              <span class="stat-card-label">Domains Explored</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background: rgba(201, 168, 76, 0.12); color: #c9a84c;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="stat-card-data">
+              <span class="stat-card-num" id="dash-xp">0</span>
+              <span class="stat-card-label">Total XP</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+            </div>
+            <div class="stat-card-data">
+              <span class="stat-card-num" id="dash-streak">0</span>
+              <span class="stat-card-label">Day Streak 🔥</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Credentials -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Recent Credentials</h3>
+            <a href="#/credentials" class="card-link">View All →</a>
+          </div>
+          <div id="recent-credentials" class="credentials-list">
+            <div class="empty-state">
+              <p>No credentials yet. Take your first challenge to get started.</p>
+              <button class="btn btn-ghost" onclick="location.hash='#/challenges'">Browse Challenges</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CHALLENGES VIEW ─── -->
+    <section id="view-challenges" class="view">
+      <div class="container">
+        <div class="page-header">
+          <h2>Skill Challenges</h2>
+          <p>Prove your abilities. Each completed challenge earns a verified credential.</p>
+        </div>
+        <div class="filter-bar" id="filter-bar">
+          <button class="filter-chip active" data-filter="all" onclick="filterChallenges('all')">All</button>
+          <!-- domain + type chips populated by JS -->
+        </div>
+        <div class="challenge-grid" id="challenge-grid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ACTIVE CHALLENGE VIEW ─── -->
+    <section id="view-challenge-active" class="view">
+      <div class="container">
+        <div class="challenge-header" id="challenge-header">
+          <!-- populated by JS -->
+        </div>
+        <div class="challenge-workspace" id="challenge-workspace">
+          <!-- populated by JS based on challenge type -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── RESULTS VIEW ─── -->
+    <section id="view-results" class="view">
+      <div class="container">
+        <div class="results-card" id="results-card">
+          <!-- populated by JS after challenge completion -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CREDENTIALS VIEW ─── -->
+    <section id="view-credentials" class="view">
+      <div class="container">
+        <div class="page-header">
+          <h2>Your Credentials</h2>
+          <p>Cryptographically verified proof of your abilities.</p>
+        </div>
+        <div id="credentials-grid" class="credentials-grid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROFILE VIEW ─── -->
+    <section id="view-profile" class="view">
+      <div class="container">
+        <div class="profile-wrapper" id="profile-wrapper">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── VERIFY VIEW (public credential verification) ─── -->
+    <section id="view-verify" class="view">
+      <div class="container">
+        <div class="verify-card" id="verify-card">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>

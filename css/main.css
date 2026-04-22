@@ -164,8 +164,8 @@ a:hover { color: var(--gold-light); }
 .hero {
   position: relative; z-index: 1;
   display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px;
-  align-items: center; min-height: 85vh;
-  max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  align-items: center; padding: 120px 48px 80px;
+  max-width: 1280px; margin: 0 auto;
 }
 #grid-canvas {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -214,7 +214,7 @@ a:hover { color: var(--gold-light); }
   0%,100% { box-shadow: 0 0 6px var(--cyber-glow); opacity: 1; }
   50% { box-shadow: 0 0 14px var(--cyber-glow); opacity: 0.6; }
 }
-@keyframes float { 0%,100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-14px) rotate(-1.5deg); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 @keyframes cardGlow {
   0%,100% {
     border-color: rgba(201,168,76,0.3);
@@ -244,7 +244,6 @@ a:hover { color: var(--gold-light); }
   position: relative; z-index: 1;
   backdrop-filter: blur(40px) saturate(2.5);
   -webkit-backdrop-filter: blur(40px) saturate(2.5);
-  transform: rotate(-1.5deg);
   animation: float 6s ease-in-out infinite, cardGlow 5s ease-in-out infinite;
 }
 .preview-credential::before {
@@ -279,7 +278,7 @@ a:hover { color: var(--gold-light); }
 .pc-footer { font-size: 0.75rem; color: var(--text-3); text-align: center; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
 
 /* ── HOW IT WORKS ── */
-.how-section { padding: 0px 32px 80px; max-width: 1200px; margin: -40px auto 0; }
+.how-section { padding: 40px 32px 80px; max-width: 1200px; margin: 0 auto; }
 .how-header { margin-bottom: 48px; }
 .how-tag { font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); font-weight: 700; display: block; margin-bottom: 8px; }
 .how-title { font-size: 1.8rem; font-weight: 800; }

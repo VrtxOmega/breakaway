@@ -1322,3 +1322,39 @@ a:hover { color: var(--gold-light); }
   gap: 8px;
   pointer-events: none;
 }
+
+/* ── VERITAS Labs Attribution Footer ── */
+.veritas-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 0;
+  background: linear-gradient(to top, rgba(10,10,15,0.85), rgba(10,10,15,0));
+  border-top: 1px solid rgba(201,168,76,0.08);
+  pointer-events: none;
+  user-select: none;
+}
+.footer-omega {
+  font-family: 'Georgia', serif;
+  font-size: 0.72rem;
+  color: #C9A84C;
+  opacity: 0.6;
+}
+.footer-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+.footer-text strong {
+  font-weight: 600;
+  color: rgba(201,168,76,0.45);
+}

@@ -61,19 +61,19 @@
             <span class="hero-break">Break</span>
             <span class="hero-away">Away</span>
           </h1>
-          <p class="hero-lead">Proof is the way out.<br>No degree required.</p>
-          <p class="hero-sub">This turns skill into undeniable proof that bypasses gatekeeping.</p>
+          <p class="hero-lead"><span style="color: var(--gold);">Proof</span> is the way out.<br>No degree required.</p>
+          <p class="hero-sub">This turns skill into <strong style="color: #fff; font-weight: 600;">undeniable proof</strong> that <strong style="color: var(--gold); font-weight: 600;">bypasses gatekeeping</strong>.</p>
           <div class="hero-actions">
             <button id="btn-get-started" class="btn btn-primary btn-lg btn-hold">
               <div class="hold-progress" id="hold-progress-bar"></div>
               <span class="btn-text">Hold to Break Out</span>
             </button>
-            <button id="btn-learn-more" class="btn btn-ghost btn-lg">How It Works</button>
+            <button id="btn-learn-more" class="btn btn-ghost btn-lg" style="border: 1px solid var(--glass-border); background: rgba(255,255,255,0.02);">How It Works</button>
           </div>
-          <div class="hero-proof">
-            <div class="proof-line"><span class="proof-dot live"></span> <span class="proof-label">Open Source</span></div>
-            <div class="proof-line"><span class="proof-dot"></span> <span class="proof-label">SHA-256 Verified</span></div>
-            <div class="proof-line"><span class="proof-dot"></span> <span class="proof-label">Local-First / Sovereign</span></div>
+          <div class="hero-proof" style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
+            <div class="proof-line" style="background: var(--bg-3); padding: 4px 12px; border-radius: 20px; border: 1px solid var(--glass-border); font-size: 0.75rem;"><span class="proof-dot live"></span> <span class="proof-label">Open Source</span></div>
+            <div class="proof-line" style="background: var(--bg-3); padding: 4px 12px; border-radius: 20px; border: 1px solid var(--glass-border); font-size: 0.75rem;"><span class="proof-dot"></span> <span class="proof-label">SHA-256 Verified</span></div>
+            <div class="proof-line" style="background: var(--bg-3); padding: 4px 12px; border-radius: 20px; border: 1px solid var(--glass-border); font-size: 0.75rem;"><span class="proof-dot"></span> <span class="proof-label">Local-First / Sovereign</span></div>
           </div>
         </div>
         <div class="hero-right">
@@ -95,15 +95,15 @@
               <span class="pc-hash-label">SHA-256</span>
               <span class="pc-hash-val">a7f3b2c9d4e8...1f6a</span>
             </div>
-            <div class="pc-market-signal" style="margin-top: 16px; padding: 12px; background: rgba(52, 211, 153, 0.1); border-left: 3px solid #34d399; border-radius: 4px;">
-              <div style="font-size: 10px; font-weight: 700; color: #34d399; letter-spacing: 1px; margin-bottom: 4px;">MARKET SIGNAL</div>
+            <div class="pc-market-signal" style="margin-top: 16px; padding: 12px; background: rgba(10, 10, 15, 0.8); border-left: 3px solid var(--gold); border-radius: 4px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+              <div style="font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 1px; margin-bottom: 4px;">MARKET SIGNAL</div>
               <div style="font-size: 14px; font-weight: 600; color: #fff;">$65k–$110k Value</div>
             </div>
             <div class="pc-footer">
               <span id="stat-challenges">3</span> challenges · <span id="stat-domains">5</span> domains · <span id="stat-verified">0</span> issued
             </div>
           </div>
-          <div class="preview-glow"></div>
+          <div class="preview-glow" style="position: absolute; top: 50%; left: 50%; width: 400px; height: 400px; transform: translate(-50%, -50%); background: radial-gradient(circle, var(--gold-glow) 0%, transparent 60%); z-index: -1; pointer-events: none;"></div>
         </div>
       </div>
 
@@ -115,21 +115,46 @@
         </div>
         <div class="steps-row">
           <div class="step" data-n="01">
+            <div class="step-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+                <line x1="14" y1="4" x2="10" y2="20" opacity="0.5"></line>
+              </svg>
+            </div>
             <h3>Challenge</h3>
             <p>Code, logic, analysis, debug — pick a domain and prove it live.</p>
           </div>
           <div class="step-arrow">→</div>
           <div class="step" data-n="02">
+            <div class="step-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </div>
             <h3>Verify</h3>
             <p>Your work is scored and sealed with SHA-256. Tamper-proof.</p>
           </div>
           <div class="step-arrow">→</div>
           <div class="step" data-n="03">
+            <div class="step-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6"></circle>
+                <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"></path>
+              </svg>
+            </div>
             <h3>Credential</h3>
             <p>Each pass earns a verified credential tied to your profile.</p>
           </div>
           <div class="step-arrow">→</div>
           <div class="step" data-n="04">
+            <div class="step-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+            </div>
             <h3>Breakaway</h3>
             <p>Stack credentials until your proven skills outpace any degree.</p>
           </div>

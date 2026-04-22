@@ -164,7 +164,7 @@ a:hover { color: var(--gold-light); }
 .hero {
   position: relative; z-index: 1;
   display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px;
-  align-items: center; min-height: 100vh;
+  align-items: center; min-height: 85vh;
   max-width: 1280px; margin: 0 auto; padding: 0 48px;
 }
 #grid-canvas {
@@ -278,7 +278,7 @@ a:hover { color: var(--gold-light); }
 .pc-footer { font-size: 0.75rem; color: var(--text-3); text-align: center; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
 
 /* ── HOW IT WORKS ── */
-.how-section { padding: 80px 32px; max-width: 1200px; margin: 0 auto; }
+.how-section { padding: 0px 32px 80px; max-width: 1200px; margin: -40px auto 0; }
 .how-header { margin-bottom: 48px; }
 .how-tag { font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); font-weight: 700; display: block; margin-bottom: 8px; }
 .how-title { font-size: 1.8rem; font-weight: 800; }

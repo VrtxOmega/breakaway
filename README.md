@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.1.0-C9A84C?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/version-1.2.0-C9A84C?style=flat-square" alt="Version" />
   <img src="https://img.shields.io/badge/VERITAS-PASS%20(10%2F10)-34d399?style=flat-square" alt="VERITAS" />
   <img src="https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JS-06b6d4?style=flat-square" alt="Stack" />
   <img src="https://img.shields.io/badge/framework-none-a78bfa?style=flat-square" alt="Framework" />
@@ -26,6 +26,52 @@ Breakaway is a **zero-dependency**, browser-native credentialing engine that gen
 No accounts. No servers. No tracking. Everything runs locally in your browser and stays on your machine.
 
 **Built for people who can do the work but don't have the paper to prove it.**
+
+---
+
+## E2E Walkthrough
+
+> Real screenshots from the live application — no mockups.
+
+### 1. Landing Page
+
+The entry point. Dark obsidian background with VERITAS gold accents. One CTA: **"Start Building Proof."**
+
+<p align="center">
+  <img src="screenshots/01_landing.png" alt="Landing Page" width="800" />
+</p>
+
+### 2. Challenge Gallery
+
+12 challenges across 4 domains and 3 difficulty tiers. Filter by domain, type, or difficulty. Each card shows available AI modes, XP reward, and time limit.
+
+<p align="center">
+  <img src="screenshots/03_challenges.png" alt="Challenge Gallery" width="800" />
+</p>
+
+### 3. Dashboard
+
+Cognitive radar chart (5-axis), skill trajectory, tier progress bars, and recent credentials. All data computed from completed challenges — no synthetic data.
+
+<p align="center">
+  <img src="screenshots/02_dashboard.png" alt="Dashboard" width="800" />
+</p>
+
+### 4. Credential Vault
+
+Every completed challenge generates a SHA-256 verified credential. Stored locally. Each credential carries an **integrity label** (VERIFIED / CLEAN / OBSERVED / FLAGGED) based on behavioral signals.
+
+<p align="center">
+  <img src="screenshots/04_credentials.png" alt="Credential Vault" width="800" />
+</p>
+
+### 5. Profile
+
+Aggregated performance view: overall grade, domain breakdown, XP total, and skill map.
+
+<p align="center">
+  <img src="screenshots/05_profile.png" alt="Profile" width="800" />
+</p>
 
 ---
 
@@ -179,7 +225,7 @@ Edge  → 1.4x base XP (elite)
 Every completed challenge generates a verifiable credential:
 
 ```
-hash = SHA-256(challengeId + score + timestamp)
+hash = SHA-256(challengeId + code + score + time + aiMode + pasteCount + tabSwitches + timestamp)
 ```
 
 Credentials include:
@@ -187,10 +233,45 @@ Credentials include:
 - Raw score + grade
 - Time bonus earned
 - AI mode used (solo / augmented / orchestrator)
+- **Behavioral integrity label** (VERIFIED / CLEAN / OBSERVED / FLAGGED)
+- Paste count + tab-switch count (for solo mode)
 - ISO timestamp
 - 64-character hex hash
 
 Credentials are stored locally and can be shared via the verification URL format: `#/verify/:hash`
+
+---
+
+## Behavioral Integrity System
+
+> People are liars. We encourage honesty — but we enforce guardrails.
+
+When a user selects **PURE HUMAN** mode, Breakaway silently monitors behavioral signals to verify the claim. This is not punitive — it is transparent.
+
+### Signals Tracked
+
+| Signal | Method | Scope |
+|--------|--------|-------|
+| **Paste Events** | `onpaste` listener on all input fields | Code editors, bug inputs, textareas |
+| **Tab Switches** | `visibilitychange` API | Entire challenge session |
+| **Typing Cadence** | Keystroke interval analysis | Code challenges (solo mode only) |
+
+### Integrity Labels
+
+| Label | Condition | Color |
+|-------|-----------|-------|
+| **VERIFIED** | 0 signals detected | `#34d399` (green) |
+| **CLEAN** | 1–2 signals | `#06b6d4` (cyan) |
+| **OBSERVED** | 3–5 signals | `#f59e0b` (amber) |
+| **FLAGGED** | 6+ signals | `#ef4444` (red) |
+
+### Design Principles
+
+1. **Non-punitive** — Integrity labels are informational, not gatekeeping. A "FLAGGED" credential is still earned.
+2. **Transparent** — The results screen shows exact paste counts and tab-switch counts. Nothing is hidden.
+3. **Deterministic** — `computeIntegrity(pasteCount, tabSwitchCount, aiMode)` is a pure function. Same inputs → same label.
+4. **Scope-limited** — Only active in `solo` mode. AI-assisted modes (`augmented`, `native`) bypass integrity tracking entirely.
+5. **Included in hash** — Behavioral signal counts are inputs to the SHA-256 credential hash, making the integrity label tamper-evident.
 
 ---
 
@@ -210,9 +291,9 @@ This project has been verified through the full VERITAS Ω 10-gate deterministic
 | ADVERSARY | ✅ PASS |
 | TRACE/SEAL | ✅ SEALED |
 
-**Claim ID**: `b431b1903fb...`  
-**Seal**: `813fdb339f003...`  
-**Commit**: `ae9997c2b727d13d936c67d6a3ff6b8967228a0b`
+**Claim ID**: `4681651d3e9f11c3...`  
+**Seal**: `073c16f760ab8540...`  
+**Commit**: `e96f43ddbc908390f282930227d75218498a89dc`
 
 ---
 

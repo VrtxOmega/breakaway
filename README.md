@@ -15,6 +15,7 @@
   <img src="https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JS-06b6d4?style=flat-square" alt="Stack" />
   <img src="https://img.shields.io/badge/framework-none-a78bfa?style=flat-square" alt="Framework" />
   <img src="https://img.shields.io/badge/dependencies-0-fbbf24?style=flat-square" alt="Dependencies" />
+  <a href="https://vrtxomega.github.io/breakaway/"><img src="https://img.shields.io/badge/🔴_LIVE-vrtxomega.github.io/breakaway-C9A84C?style=flat-square" alt="Live Demo" /></a>
 </p>
 
 ---
@@ -316,6 +317,7 @@ No install. No build. No server required.
 
 | Platform | URL |
 |----------|-----|
+| **Live Demo** | [vrtxomega.github.io/breakaway](https://vrtxomega.github.io/breakaway/) |
 | GitHub | [VrtxOmega/breakaway](https://github.com/VrtxOmega/breakaway) |
 | Codeberg | [VeritasOmega/breakaway](https://codeberg.org/VeritasOmega/breakaway) |
 

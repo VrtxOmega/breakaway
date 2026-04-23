@@ -24,8 +24,6 @@
 
 Breakaway is a **zero-dependency**, browser-native credentialing engine that generates tamper-proof, SHA-256 verified skill credentials through real cognitive challenges — not multiple choice trivia.
 
-No accounts. No servers. No tracking. Everything runs locally in your browser and stays on your machine.
-
 **Built for people who can do the work but don't have the paper to prove it.**
 
 ---

@@ -32,6 +32,15 @@ const DIFFICULTY_TIERS = {
 function getTier(c){return DIFFICULTY_TIERS[c.tier||'core']||DIFFICULTY_TIERS.core;}
 function getTierXP(c){return Math.round((c.xp||100)*(getTier(c).mult));}
 
+// ── Difficulty Tiers: Probe (easy) → Core (standard) → Edge (hard) ──
+const DIFFICULTY_TIERS = {
+  probe:  {label:'PROBE',  color:'#34d399',mult:0.8, timeBonus:1.0, desc:'Warm-up. Build confidence.'},
+  core:   {label:'CORE',   color:'#06b6d4',mult:1.0, timeBonus:1.0, desc:'Standard challenge. Prove your skill.'},
+  edge:   {label:'EDGE',   color:'#ef4444',mult:1.4, timeBonus:1.2, desc:'Elite difficulty. Only the sharp survive.'}
+};
+function getTier(c){return DIFFICULTY_TIERS[c.tier||'core']||DIFFICULTY_TIERS.core;}
+function getTierXP(c){return Math.round((c.xp||100)*(getTier(c).mult));}
+
 function getGrade(s){for(const g of GRADE_ORDER)if(s>=g.min)return g;return GRADES.F;}
 function calcTimeBonus(elapsed,total){const r=elapsed/total;return r<0.3?50:r<0.5?30:r<0.7?15:0;}
 // calcStreak: ONLY mutates state when called from completion, not renders
@@ -154,6 +163,28 @@ const COGNITIVE_CHALLENGES = [
    bugCount:5}
 ];
 CHALLENGES.push(...COGNITIVE_CHALLENGES);
+
+// ── Toast Notification System ──
+const TOAST_QUEUE=[];let TOAST_ACTIVE=false;
+function showToast(msg,type,duration){
+  type=type||'info';duration=duration||3000;
+  TOAST_QUEUE.push({msg:msg,type:type,duration:duration});
+  if(!TOAST_ACTIVE)drainToast();
+}
+function drainToast(){
+  if(!TOAST_QUEUE.length){TOAST_ACTIVE=false;return;}
+  TOAST_ACTIVE=true;
+  var item=TOAST_QUEUE.shift();
+  var container=document.getElementById('toast-container');
+  if(!container){container=document.createElement('div');container.id='toast-container';container.style.cssText='position:fixed;top:24px;right:24px;z-index:10000;display:flex;flex-direction:column;gap:8px;pointer-events:none;';document.body.appendChild(container);}
+  var el=document.createElement('div');
+  var colors={info:'linear-gradient(135deg,rgba(6,182,212,0.95),rgba(6,182,212,0.7))',success:'linear-gradient(135deg,rgba(52,211,153,0.95),rgba(52,211,153,0.7))',xp:'linear-gradient(135deg,rgba(201,168,76,0.95),rgba(201,168,76,0.7))',rank:'linear-gradient(135deg,rgba(167,139,250,0.95),rgba(167,139,250,0.7))',streak:'linear-gradient(135deg,rgba(249,115,22,0.95),rgba(249,115,22,0.7))'};
+  var bg=colors[item.type]||colors.info;
+  el.style.cssText='background:'+bg+';color:#fff;padding:14px 22px;border-radius:12px;font:600 14px Inter,sans-serif;box-shadow:0 8px 32px rgba(0,0,0,0.4);transform:translateX(120%);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),opacity 0.3s;opacity:0;pointer-events:auto;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15);';
+  el.textContent=item.msg;container.appendChild(el);
+  requestAnimationFrame(function(){el.style.transform='translateX(0)';el.style.opacity='1';});
+  setTimeout(function(){el.style.transform='translateX(120%)';el.style.opacity='0';setTimeout(function(){el.remove();drainToast();},400);},item.duration);
+}
 
 // ── Toast Notification System ──
 const TOAST_QUEUE=[];let TOAST_ACTIVE=false;
@@ -571,11 +602,15 @@ function showResults(cred,detail){
   const grade=getGrade(cred.score);
   const ch=CHALLENGES.find(c=>c.id===cred.challengeId);
   const baseXP=ch?getTierXP(ch):100;
-  const timeBonus=calcTimeBonus(cred.time,ch?.time||300);
+  const timeBonus=Math.round(calcTimeBonus(cred.time,ch?.time||300)*(ch?getTier(ch).timeBonus:1.0));
   const streak=calcStreak();
   const streakMult=Math.min(streak,5);
   const earnedXP=Math.round((baseXP*(cred.score/100)+timeBonus)*( 1 + streakMult*0.1));
   APP.xp+=earnedXP;saveState();
+  showToast('\u2726 +'+earnedXP+' XP earned!','xp',2500);
+  if(streak>1)showToast('\ud83d\udd25 '+streak+'x Streak!','streak',2000);
+  var prevGrade=getGrade(APP.credentials.length>1?Math.round(APP.credentials.slice(0,-1).reduce(function(a,c){return a+c.score;},0)/(APP.credentials.length-1)):0);
+  if(grade.min>prevGrade.min)showToast('\u2b06 RANK UP: '+grade.title+'!','rank',4000);
   showToast('\u2726 +'+earnedXP+' XP earned!','xp',2500);
   if(streak>1)showToast('\ud83d\udd25 '+streak+'x Streak!','streak',2000);
   var prevGrade=getGrade(APP.credentials.length>1?Math.round(APP.credentials.slice(0,-1).reduce(function(a,c){return a+c.score;},0)/(APP.credentials.length-1)):0);
@@ -1093,8 +1128,71 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Domain chips
   const chips=document.getElementById('domain-chips');
   DOMAINS.forEach(d=>{const el=document.createElement('div');el.className='domain-chip';el.textContent=d;el.onclick=()=>el.classList.toggle('selected');chips.appendChild(el);});
-  document.getElementById('onboard-form').addEventListener('submit',e=>{
-    e.preventDefault();APP.user={name:document.getElementById('onboard-name').value,title:document.getElementById('onboard-title').value,bio:document.getElementById('onboard-bio').value};saveState();navigate('#/dashboard');
+  // Auth Tabs Logic
+  let authMode = 'signup';
+  const tabSignup = document.getElementById('tab-signup');
+  const tabLogin = document.getElementById('tab-login');
+  const signupFields = document.getElementById('signup-fields');
+  const submitText = document.getElementById('onboard-submit-text');
+  
+  if (tabSignup && tabLogin && signupFields && submitText) {
+    tabSignup.addEventListener('click', () => {
+      authMode = 'signup';
+      tabSignup.classList.add('active');
+      tabLogin.classList.remove('active');
+      signupFields.classList.remove('hidden');
+      submitText.textContent = 'Launch Your Profile';
+      document.getElementById('onboard-name').required = true;
+    });
+    
+    tabLogin.addEventListener('click', () => {
+      authMode = 'login';
+      tabLogin.classList.add('active');
+      tabSignup.classList.remove('active');
+      signupFields.classList.add('hidden');
+      submitText.textContent = 'Access Your Profile';
+      document.getElementById('onboard-name').required = false;
+    });
+  }
+
+  async function hashCredential(email, password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(email.toLowerCase() + ":" + password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  document.getElementById('onboard-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = document.getElementById('onboard-email').value;
+    const password = document.getElementById('onboard-password').value;
+    const hash = await hashCredential(email, password);
+
+    if (authMode === 'signup') {
+      APP.user = {
+        email: email,
+        hash: hash,
+        name: document.getElementById('onboard-name').value,
+        title: document.getElementById('onboard-title').value,
+        bio: document.getElementById('onboard-bio').value
+      };
+      saveState();
+      navigate('#/dashboard');
+    } else {
+      // Login mode
+      // Handle legacy migration where APP.user exists but lacks email/hash
+      if (APP.user && !APP.user.hash && APP.user.name) {
+        APP.user.email = email;
+        APP.user.hash = hash;
+        saveState();
+        navigate('#/dashboard');
+      } else if (APP.user && APP.user.email === email && APP.user.hash === hash) {
+        navigate('#/dashboard');
+      } else {
+        alert('Invalid credentials. If you are new, please Sign Up.');
+      }
+    }
   });
   if(APP.user&&APP.user.name&&APP.user.name.length>0){document.getElementById('nav-avatar').textContent=APP.user.name[0].toUpperCase();}
   // ── Keyboard Shortcuts ──

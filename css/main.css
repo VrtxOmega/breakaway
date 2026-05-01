@@ -1372,3 +1372,43 @@ a:hover { color: var(--gold-light); }
   font-weight: 600;
   color: rgba(201,168,76,0.45);
 }
+
+/* ── AUTHENTICATION TABS ── */
+.auth-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+}
+.auth-tabs .btn {
+  flex: 1;
+  border-color: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.auth-tabs .btn:hover {
+  color: #C9A84C;
+  border-color: rgba(201, 168, 76, 0.3);
+  background: rgba(201, 168, 76, 0.05);
+}
+.auth-tabs .btn.active {
+  color: #C9A84C;
+  border-color: #C9A84C;
+  background: rgba(201, 168, 76, 0.1);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.15);
+}
+
+.onboard-form .form-group.hidden {
+  display: none;
+}

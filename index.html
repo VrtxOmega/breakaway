@@ -171,27 +171,44 @@
             <h2>Set Up Your Identity</h2>
             <p>This stays on your device. Nothing leaves your machine.</p>
           </div>
+          
+          <div class="auth-tabs">
+            <button type="button" id="tab-signup" class="btn btn-ghost active">Sign Up</button>
+            <button type="button" id="tab-login" class="btn btn-ghost">Log In</button>
+          </div>
+
           <form id="onboard-form" class="onboard-form">
             <div class="form-group">
-              <label for="onboard-name">Display Name</label>
-              <input type="text" id="onboard-name" placeholder="How you want to be known" required maxlength="50">
+              <label for="onboard-email">Email Address</label>
+              <input type="email" id="onboard-email" placeholder="you@domain.com" required>
             </div>
             <div class="form-group">
-              <label for="onboard-title">Current Title / Role</label>
-              <input type="text" id="onboard-title" placeholder="e.g. Self-taught developer, Career changer" maxlength="80">
+              <label for="onboard-password">Password</label>
+              <input type="password" id="onboard-password" placeholder="••••••••" required minlength="8">
             </div>
-            <div class="form-group">
-              <label for="onboard-bio">One-line Bio</label>
-              <input type="text" id="onboard-bio" placeholder="What drives you" maxlength="120">
-            </div>
-            <div class="form-group">
-              <label>Pick Your Focus Domains</label>
-              <div class="domain-chips" id="domain-chips">
-                <!-- populated by JS -->
+
+            <div id="signup-fields">
+              <div class="form-group">
+                <label for="onboard-name">Display Name</label>
+                <input type="text" id="onboard-name" placeholder="How you want to be known" required maxlength="50">
+              </div>
+              <div class="form-group">
+                <label for="onboard-title">Current Title / Role</label>
+                <input type="text" id="onboard-title" placeholder="e.g. Self-taught developer, Career changer" maxlength="80">
+              </div>
+              <div class="form-group">
+                <label for="onboard-bio">One-line Bio</label>
+                <input type="text" id="onboard-bio" placeholder="What drives you" maxlength="120">
+              </div>
+              <div class="form-group">
+                <label>Pick Your Focus Domains</label>
+                <div class="domain-chips" id="domain-chips">
+                  <!-- populated by JS -->
+                </div>
               </div>
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-full">
-              <span>Launch Your Profile</span>
+              <span id="onboard-submit-text">Launch Your Profile</span>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </form>
